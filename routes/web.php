@@ -11,9 +11,10 @@ Route::get('/listings/{listing}', [ListingController::class, 'show']);
 
 // ✅ Home route (je kan dit eventueel ook via controller doen later)
 Route::get('/', function () {
-    return view('listings', [
+    
+    return view('listings.index', [
         'heading' => 'Latest Listings',
-        'listings' => \App\Models\Listing::all()
+        'listings' => \App\Models\Listing::latest()->filter(request(['tag']))->get()
     ]);
 });
 

@@ -10,9 +10,9 @@ class ListingController extends Controller
     // Laat alle listings zien
     public function index()
     {
-        return view('listings', [
-            'listings' => Listing::all(),
-            'heading' => 'Latest Listings'
+        
+        return view('listings.index', [
+            'listings' => Listing::all()
         ]);
     }
 
