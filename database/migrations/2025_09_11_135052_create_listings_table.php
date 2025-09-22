@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('listings', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('logo')->nullable();
             $table->string('tags');
             $table->string('company');
             $table->string('location');
@@ -30,5 +31,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('listings');
+        Schema::table('listings', function (Blueprint $table) {
+        $table->dropColumn('logo');
+    });
     }
 };

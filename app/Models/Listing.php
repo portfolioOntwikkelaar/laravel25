@@ -23,10 +23,13 @@ class Listing extends Model
         if($filters['tag'] ?? false) {
             $query->where('tags', 'like', '%' . request('tag') . '%');
         }
-        if($filters['search'] ?? false) {
-            $query->where('title', 'like', '%' . request('search') . '%')
-            ->orWhere('description', 'like', '%' . request('search') . '%')
-            ->orWhere('tags', 'like', '%' . request('search') . '%');
+        if ($filters['search'] ?? false) {
+            $query->where(function ($query) use ($filters) {
+                $query->where('title', 'like', '%' . $filters['search'] . '%')
+                      ->orWhere('description', 'like', '%' . $filters['search'] . '%')
+                      ->orWhere('company', 'like', '%' . $filters['search'] . '%')
+                      ->orWhere('tags', 'like', '%' . $filters['search'] . '%');
+            });
         }
     }
 }
